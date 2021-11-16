@@ -1,4 +1,4 @@
-# validation-API
+# ValidationAPI
 Django rest API to perform facial recognition for IoT Smart Doorbell's expo project. will soon be deployed on heroku.
 
 
