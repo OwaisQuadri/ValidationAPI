@@ -12,7 +12,7 @@ class Detect:
         # initialize recognized
         recognized = ""
         # load image to save
-        head="C:\\Users\\Owais\\Documents\\capstone\\validation-API\\ValidationAPI\\face_api\\faceDetect\\"
+        head="/Users/owaisquadri/Documents/capstone/IoT-Smart-Doorbell/validation-API/ValidationAPI/face_api/faceDetect"
         knownPics = os.listdir(path.join(head,"known"))
         # get faces of random pic input
         input_image = fr.load_image_file(path.join(head,"input.png"))
