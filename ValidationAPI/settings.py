@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import platform
+import django_heroku
 
 IS_WIN=(platform.system()=='Windows')
 
@@ -131,3 +132,6 @@ MEDIA_ROOT=os.path.join(os.path.dirname(BASE_DIR),"ValidationAPI/face_api/faceDe
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#heroku settings
+django_heroku.settings(locals())

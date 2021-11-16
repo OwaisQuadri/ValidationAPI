@@ -12,6 +12,8 @@ djangorestframework = "*"
 django = "*"
 django-extra-fields = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 
