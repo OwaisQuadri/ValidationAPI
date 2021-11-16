@@ -4,18 +4,28 @@ from PIL import Image
 import os
 from os import path
 from ..models import Face
+from django.conf import settings
 # face_recognition --tolderance .40 ./known ./input
 class Detect:
     def __init__(self):
         pass
     def recognize(self):
+        output=""
         # initialize recognized
         recognized = ""
         # load image to save
-        head="/Users/owaisquadri/Documents/capstone/IoT-Smart-Doorbell/validation-API/ValidationAPI/face_api/faceDetect"
-        knownPics = os.listdir(path.join(head,"known"))
+        imagesDir="\\ValidationAPI\\face_api\\faceDetect"
+        if not settings.IS_WIN:
+            imagesDir=imagesDir.replace("\\","/")
+        head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
+        knownPics_path="images\\known"
         # get faces of random pic input
-        input_image = fr.load_image_file(path.join(head,"input.png"))
+        input_image_path=str(Face.objects.last().face)
+        if not settings.IS_WIN:
+            knownPics_path=knownPics_path.replace("\\","/")
+            input_image_path=input_image_path.replace("\\","/")
+        
+        input_image = fr.load_image_file(path.join(head,input_image_path))
         # get faces from input
         input_locations = fr.face_locations(input_image)
         numOfInputs = len(input_locations)
@@ -26,28 +36,48 @@ class Detect:
             face_input = input_image[top:bottom, left:right]
             pil_image = Image.fromarray(face_input)
             # pil_image.show()
-            pil_image.save(path.join(head,f'./input/input{count}.png'))
+            inputcount_path=f'images\\input\\input{count}.png'
+            if not settings.IS_WIN:
+                inputcount_path=inputcount_path.replace("\\","/")
+            pil_image.save(path.join(head,inputcount_path))
+        self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
-        for f in knownPics:
-            name_of_known = f[:-4]
+        knownPics = os.listdir(path.join(head,knownPics_path))
+        for f in range(len(knownPics)):
+            
+            name_of_known = knownPics[f][:-4]
             print(name_of_known)
-            image_of_known = fr.load_image_file(path.join(head,f'./known/{f}'))
+            known_path=f'images\\known\\{knownPics[f]}'
+            if not settings.IS_WIN:
+                known_path=known_path.replace("\\","/")
+            image_of_known = fr.load_image_file(path.join(head,known_path))
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
             # compare current known against inputs
-            inputLocation = os.listdir(path.join(head,"./input/"))
-            print("\nUsers recognized in input.png:")
+            inputLocation = os.listdir(path.join(head,"images\\input"))
             for i in inputLocation:
-                img = fr.load_image_file(path.join(head,f'./input/{i}'))
+                i_path=f'images\\input\\{i}'
+                if not settings.IS_WIN:
+                    i_path=i_path.replace("\\","/")
+                img = fr.load_image_file(path.join(head,i_path))
                 face_encoding = fr.face_encodings(img)
                 match = fr.compare_faces(known_face_encoding, face_encoding)[0]
-                input_name = "Unknown Individual"
+                
                 if match == True:
-                    recognized = name_of_known
-                    print(f'{recognized} was recognized')
-
-
+                    print("recognized!")
+                    output+= name_of_known.replace("_"," ")+","
+        try:
+            if output[-1]==",":
+                output=output[:-1]
+        except:
+            output=""
+        return output
+    def delete_unknowns(self):
+        unknowns=Face.objects.filter(known=False)
+        for this in unknowns:
+            this.face.delete()
+        unknowns.delete()
         #numOfFaces = len(facelocations)
         # if(numOfFaces > 1):
         #   print(f'there are {numOfFaces} faces in this image')

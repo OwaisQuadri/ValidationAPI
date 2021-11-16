@@ -9,6 +9,9 @@ face-recognition = "*"
 dlib = "*"
 update = "*"
 djangorestframework = "*"
+django = "*"
+django-extra-fields = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
