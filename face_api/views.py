@@ -48,6 +48,14 @@ class FaceAPIView (APIView):
 class DeleteFaceAPIView(APIView):
     def get(self,request,name):
         # name=name.replace("%20"," ")
+        if name is "null":
+            name=""
+        face=Face.objects.filter(name=name)
+        for f in face:
+            f.face.delete()
+        face.delete()
+        if name is "null":
+            name=""
         face=Face.objects.filter(name=name)
         for f in face:
             f.face.delete()
