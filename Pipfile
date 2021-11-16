@@ -15,6 +15,7 @@ psycopg2-binary = "*"
 gunicorn = "*"
 django-heroku = "*"
 whitenoise = "*"
+heroku = "*"
 
 [dev-packages]
 
