@@ -55,13 +55,25 @@ class Detect:
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
             # compare current known against inputs
-            inputLocation = os.listdir(path.join(head,"images\\input"))
+            inputLocation_path="images\\input"
+            if not settings.IS_WIN:
+                inputLocation_path=inputLocation_path.replace("\\","/")
+            inputLocation = os.listdir(path.join(head,inputLocation_path))
+            
             for i in inputLocation:
                 i_path=f'images\\input\\{i}'
                 if not settings.IS_WIN:
                     i_path=i_path.replace("\\","/")
-                img = fr.load_image_file(path.join(head,i_path))
-                face_encoding = fr.face_encodings(img)
+                
+                i__path=path.join(head,i_path)
+                
+                img = fr.load_image_file(i__path)
+                im=Image.open(i__path)
+                w,h=im.size
+                kfl=[(0, w, h, 0)]
+                im.close()
+                face_encoding = fr.face_encodings(img,known_face_locations=kfl)
+                
                 match = fr.compare_faces(known_face_encoding, face_encoding)[0]
                 
                 if match == True:

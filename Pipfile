@@ -11,7 +11,7 @@ update = "*"
 djangorestframework = "*"
 django = "*"
 django-extra-fields = "*"
-psycopg2 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
