@@ -1,8 +1,17 @@
 # validation-API
-Django rest API to perform facial recognition for IoT Smart Doorbell's expo project.
+Django rest API to perform facial recognition for IoT Smart Doorbell's expo project. will soon be deployed on heroku.
 
 
-# next steps
-- post images
-- after each get/post request, delete the input images (without known=True)
-- extract images from api and send to detect.py
+how to use:
+- each image must be posted using base64 encoding
+- to enter known users into database:  
+{  
+    "name":"",  
+    "face":"",  
+    "known":true  
+}  
+- to detect known users in an image:  
+{  
+    "face":"",  
+    "known":false  
+}  
