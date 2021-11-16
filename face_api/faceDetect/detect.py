@@ -14,10 +14,10 @@ class Detect:
         # initialize recognized
         recognized = ""
         # load image to save
-        imagesDir="\\ValidationAPI\\face_api\\faceDetect"
-        if not settings.IS_WIN:
-            imagesDir=imagesDir.replace("\\","/")
-        head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
+        head=os.path.join(settings.MEDIA_ROOT,settings.MEDIA_URL)
+        # if not settings.IS_WIN:
+        #     imagesDir=imagesDir.replace("\\","/")
+        # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
         knownPics_path="images\\known"
         # get faces of random pic input
         input_image_path=str(Face.objects.last().face)
