@@ -20,7 +20,7 @@ class FaceAPIView (APIView):
         
         return Response(ser.data)
     #post for checking if there is a known user in picture posted (return username or 'Unregistered User')
-    @csrf_exempt
+    #@csrf_exempt
     def post(self,request):
         faceDetector=Detect()
         ser = FaceSerializer(data = request.data)
