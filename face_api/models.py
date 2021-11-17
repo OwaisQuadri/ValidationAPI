@@ -2,11 +2,10 @@ from django.db import models
 from django.conf import settings
 import os
 from uuid import uuid4
+from pathlib import Path
 
 def path_and_rename(instance, filename):
-    upload_to = 'images/known'
-    if settings.IS_WIN:
-        upload_to=upload_to.replace("/","\\")
+    upload_to = Path('images/known').resolve()
     ext = filename.split('.')[-1]
     # get filename
     if instance.name:
@@ -15,13 +14,9 @@ def path_and_rename(instance, filename):
         # set filename as random string
         filename = '{}.{}'.format(uuid4().hex, ext)
     # return the whole path to the file
-    return os.path.join(upload_to, filename)
+    return (upload_to / filename)
 # Create your models here.
 class Face (models.Model):
-    upload_to_path='images\\known'
-    
-    if not settings.IS_WIN:
-        upload_to_path=upload_to_path.replace("\\","/")
 
     name = models.CharField(max_length=100,blank=True,null=True)
     face = models.ImageField(upload_to=path_and_rename)
