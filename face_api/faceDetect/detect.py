@@ -14,9 +14,8 @@ class Detect:
         # initialize recognized
         recognized = ""
         # load image to save
-
+        print(settings.MEDIA_ROOT,settings.MEDIA_URL)
         head=os.path.join(settings.MEDIA_ROOT,settings.MEDIA_URL)
-        print(head)
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
