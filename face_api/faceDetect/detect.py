@@ -23,7 +23,6 @@ class Detect:
         recognized = ""
         # load image to save
         FMR=settings.MEDIA_ROOT
-        FM=settings.MEDIA_ROOT / settings.MEDIA_URL
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
@@ -53,7 +52,7 @@ class Detect:
             
             name_of_known = str(f.name)
             print(name_of_known)
-            known_path=FM / str(f.face)
+            known_path=FMR / 'media' / str(f.face)
             image_of_known = fr.load_image_file(known_path)
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
