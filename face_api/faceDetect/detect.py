@@ -40,10 +40,8 @@ class Detect:
             known_path=FMR / str(f.face)
             image_of_known = fr.load_image_file(known_path)
             known_face_encoding = fr.face_encodings(image_of_known)[0]
-            
-            for i in input_encodings:
-                match = fr.compare_faces(known_face_encoding, i)[0]
-                
+            matches = fr.compare_faces(known_face_encoding, input_encodings)
+            for match in matches:
                 if match == True:
                     print("recognized!")
                     output+= name_of_known+","
