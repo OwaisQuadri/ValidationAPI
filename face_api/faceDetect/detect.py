@@ -36,6 +36,7 @@ class Detect:
             input_image_path=input_image_path.replace("\\","/")
         response = requests.get(settings.API_LINK+path.join(head,str(Face.objects.filter(known=False)[0].face)))
         resp_img = Image.open(BytesIO(response.content))
+        resp_img.show()
         input_image = fr.load_image_file(resp_img)
         known_faces=Face.objects.filter(known=True)
         # get faces from input
