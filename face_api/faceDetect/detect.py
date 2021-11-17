@@ -13,6 +13,9 @@ class Detect:
     def __init__(self):
         pass
     def recognize(self):
+        #init inputFaces
+        inputFaces=[]
+        #init output
         output=""
         # initialize recognized
         recognized = ""
@@ -41,10 +44,11 @@ class Detect:
             face_input = input_image[top:bottom, left:right]
             pil_image = Image.fromarray(face_input)
             # pil_image.show()
-            inputcount_path=f'images\\input\\input{count}.png'
-            if not settings.IS_WIN:
-                inputcount_path=inputcount_path.replace("\\","/")
-            pil_image.save(settings.MEDIA_ROOT[4:]+settings.MEDIA_URL+path.join(head,inputcount_path))
+            inputFaces.append(pil_image)
+            # inputcount_path=f'images\\input\\input{count}.png'
+            # if not settings.IS_WIN:
+            #     inputcount_path=inputcount_path.replace("\\","/")
+            # pil_image.save(settings.MEDIA_ROOT[4:]+settings.MEDIA_URL+path.join(head,inputcount_path))
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
@@ -60,24 +64,26 @@ class Detect:
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
             # compare current known against inputs
-            inputLocation_path="images\\input"
-            if not settings.IS_WIN:
-                inputLocation_path=inputLocation_path.replace("\\","/")
-            inputLocation = os.listdir(settings.API_LINK+path.join(head,inputLocation_path))
+            # inputLocation_path="images\\input"
+            # if not settings.IS_WIN:
+            #     inputLocation_path=inputLocation_path.replace("\\","/")
+            # inputLocation = os.listdir(settings.API_LINK+path.join(head,inputLocation_path))
             
-            for i in inputLocation:
-                i_path=f'images\\input\\{i}'
-                if not settings.IS_WIN:
-                    i_path=i_path.replace("\\","/")
+            for i in inputFaces:
+                # i_path=f'images\\input\\{i}'
+                # if not settings.IS_WIN:
+                #     i_path=i_path.replace("\\","/")
                 
-                i__path=settings.API_LINK+path.join(head,i_path)
+                # i__path=settings.API_LINK+path.join(head,i_path)
                 
-                img = fr.load_image_file(i__path)
-                im=Image.open(i__path)
-                w,h=im.size
-                kfl=[(0, w, h, 0)]
-                im.close()
-                face_encoding = fr.face_encodings(img,known_face_locations=kfl)
+                # img = fr.load_image_file(i__path)
+                img = fr.load_image(i)
+                # im=Image.open(i)
+                
+                # w,h=im.size
+                # kfl=[(0, w, h, 0)]
+                # im.close()
+                face_encoding = fr.face_encodings(img)#,known_face_locations=kfl)
                 
                 match = fr.compare_faces(known_face_encoding, face_encoding)[0]
                 
