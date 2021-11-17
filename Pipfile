@@ -16,6 +16,7 @@ gunicorn = "*"
 django-heroku = "*"
 whitenoise = "*"
 heroku = "*"
+httpie = "*"
 
 [dev-packages]
 
