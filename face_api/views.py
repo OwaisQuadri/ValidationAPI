@@ -19,11 +19,13 @@ class FaceAPIView (APIView):
         faces=Face.objects.filter(known=True)
         ser=FaceSerializer(faces,many=True)
         output=""
+        c=1
         for f in faces:
+            
             output+=str(f.name)+","
         if len(output) != 0:
             output = output[:-1]
-        return Response(ser.data)#ser.data)
+        return Response(output)#ser.data)
     #post for checking if there is a known user in picture posted (return username or 'Unregistered User')
     #@csrf_exempt
     def post(self,request):
@@ -40,11 +42,12 @@ class FaceAPIView (APIView):
                 output=faceDetector.recognize()
                 print("\noutput: ",output)
             else:
-                output="known user added"
-                print(output)
-                print("known users are:")
-                for user in Face.objects.all():
-                    print(user.name)
+                if last.name is None:
+                    last.name="Unnamed User"
+                output=f"Known user added: {last.name}"
+                output+="\nKnown users are:")
+                for user in Face.objects.filter(known=True):
+                    output+=f"\n{user.name}"
             return Response(output, status=status.HTTP_201_CREATED)
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
     
