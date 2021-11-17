@@ -44,7 +44,7 @@ class Detect:
             inputcount_path=f'images\\input\\input{count}.png'
             if not settings.IS_WIN:
                 inputcount_path=inputcount_path.replace("\\","/")
-            pil_image.save(settings.MEDIA_ROOT+settings.MEDIA_URL+path.join(head,inputcount_path))
+            pil_image.save(settings.MEDIA_ROOT[4:]+settings.MEDIA_URL+path.join(head,inputcount_path))
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
