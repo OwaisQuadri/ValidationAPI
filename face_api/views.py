@@ -17,13 +17,13 @@ class FaceAPIView (APIView):
     def get(self,request):
         Detect().delete_unknowns()
         faces=Face.objects.filter(known=True)
-        # ser=FaceSerializer(faces,many=True)
+        ser=FaceSerializer(faces,many=True)
         output=""
         for f in faces:
             output+=str(f.name)+","
         if len(output) != 0:
             output = output[:-1]
-        return Response(output)#ser.data)
+        return Response(ser.data)#ser.data)
     #post for checking if there is a known user in picture posted (return username or 'Unregistered User')
     #@csrf_exempt
     def post(self,request):
