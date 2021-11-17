@@ -56,6 +56,10 @@ class Detect:
         for this in unknowns:
             this.face.delete()
         unknowns.delete()
+        unknowns=Face.objects.filter(name=None)
+        for this in unknowns:
+            this.face.delete()
+        unknowns.delete()
         #numOfFaces = len(facelocations)
         # if(numOfFaces > 1):
         #   print(f'there are {numOfFaces} faces in this image')
