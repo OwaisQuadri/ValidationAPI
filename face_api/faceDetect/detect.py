@@ -27,7 +27,8 @@ class Detect:
             knownPics_path=knownPics_path.replace("\\","/")
             input_image_path=input_image_path.replace("\\","/")
         
-        input_image = fr.load_image_file(settings.API_LINK+path.join(head,input_image_path))
+        input_image = fr.load_image_file(Face.objects.filter(known=False)[0].face)
+
         # get faces from input
         input_locations = fr.face_locations(input_image)
         numOfInputs = len(input_locations)
