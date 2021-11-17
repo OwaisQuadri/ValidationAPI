@@ -5,6 +5,7 @@ import os
 from os import path
 from ..models import Face
 from django.conf import settings
+import socket
 # face_recognition --tolderance .40 ./known ./input
 class Detect:
     def __init__(self):
@@ -15,7 +16,7 @@ class Detect:
         recognized = ""
         # load image to save
         print(settings.MEDIA_ROOT,settings.MEDIA_URL)
-        head=os.path.join(settings.MEDIA_ROOT,settings.MEDIA_URL)
+        head=os.path.join(socket. gethostname(),settings.MEDIA_ROOT,settings.MEDIA_URL)
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
