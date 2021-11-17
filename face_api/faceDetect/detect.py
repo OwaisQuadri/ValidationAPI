@@ -4,7 +4,7 @@ from PIL import Image
 import os
 from os import path
 import urllib.request as request
-from ValidationAPI.settings import MEDIA_URL,MEDIA_ROOT,
+from ValidationAPI.settings import MEDIA_URL,MEDIA_ROOT
 from ..models import Face
 import socket
 from io import BytesIO
