@@ -3,6 +3,8 @@ import face_recognition as fr
 from PIL import Image
 import os
 from os import path
+
+from ValidationAPI.settings import MEDIA_URL
 from ..models import Face
 from django.conf import settings
 import socket
@@ -42,7 +44,7 @@ class Detect:
             inputcount_path=f'images\\input\\input{count}.png'
             if not settings.IS_WIN:
                 inputcount_path=inputcount_path.replace("\\","/")
-            pil_image.save(settings.API_LINK+path.join(head,inputcount_path))
+            pil_image.save(settings.MEDIA_ROOT+settings.MEDIA_URL+path.join(head,inputcount_path))
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
