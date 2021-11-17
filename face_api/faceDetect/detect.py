@@ -16,7 +16,7 @@ class Detect:
         recognized = ""
         # load image to save
         
-        head=path.join(settings.API_LINK,settings.MEDIA_URL)
+        head=settings.MEDIA_URL
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
@@ -27,7 +27,7 @@ class Detect:
             knownPics_path=knownPics_path.replace("\\","/")
             input_image_path=input_image_path.replace("\\","/")
         
-        input_image = fr.load_image_file(path.join(head,input_image_path))
+        input_image = fr.load_image_file(settings.API_LINK+path.join(head,input_image_path))
         # get faces from input
         input_locations = fr.face_locations(input_image)
         numOfInputs = len(input_locations)
@@ -41,11 +41,11 @@ class Detect:
             inputcount_path=f'images\\input\\input{count}.png'
             if not settings.IS_WIN:
                 inputcount_path=inputcount_path.replace("\\","/")
-            pil_image.save(path.join(head,inputcount_path))
+            pil_image.save(settings.API_LINK+path.join(head,inputcount_path))
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
-        knownPics = os.listdir(path.join(head,knownPics_path))
+        knownPics = os.listdir(settings.API_LINK+path.join(head,knownPics_path))
         for f in range(len(knownPics)):
             
             name_of_known = knownPics[f][:-4]
@@ -53,21 +53,21 @@ class Detect:
             known_path=f'images\\known\\{knownPics[f]}'
             if not settings.IS_WIN:
                 known_path=known_path.replace("\\","/")
-            image_of_known = fr.load_image_file(path.join(head,known_path))
+            image_of_known = fr.load_image_file(settings.API_LINK+path.join(head,known_path))
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
             # compare current known against inputs
             inputLocation_path="images\\input"
             if not settings.IS_WIN:
                 inputLocation_path=inputLocation_path.replace("\\","/")
-            inputLocation = os.listdir(path.join(head,inputLocation_path))
+            inputLocation = os.listdir(settings.API_LINK+path.join(head,inputLocation_path))
             
             for i in inputLocation:
                 i_path=f'images\\input\\{i}'
                 if not settings.IS_WIN:
                     i_path=i_path.replace("\\","/")
                 
-                i__path=path.join(head,i_path)
+                i__path=settings.API_LINK+path.join(head,i_path)
                 
                 img = fr.load_image_file(i__path)
                 im=Image.open(i__path)
