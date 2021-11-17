@@ -15,9 +15,9 @@ from django.views.decorators.csrf import csrf_exempt
 class FaceAPIView (APIView):
     #get for seeing who is registered (return names and picture of who is known)
     def get(self,request):
+        Detect().delete_unknowns()
         faces=Face.objects.all()
         ser=FaceSerializer(faces,many=True)
-        
         return Response(ser.data)
     #post for checking if there is a known user in picture posted (return username or 'Unregistered User')
     #@csrf_exempt
@@ -54,13 +54,6 @@ class DeleteFaceAPIView(APIView):
         for f in face:
             f.face.delete()
         face.delete()
-        #delete null named objects
-        face=Face.objects.all()
-        for f in face:
-            print(f.name)
-            if f.name=="" :
-                f.face.delete()
-                f.delete()
         
         return Response(status = status.HTTP_204_NO_CONTENT)
         
