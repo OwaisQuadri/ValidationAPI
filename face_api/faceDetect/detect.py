@@ -32,8 +32,8 @@ class Detect:
             knownPics_path=knownPics_path.replace("\\","/")
             input_image_path=input_image_path.replace("\\","/")
         
-        input_image = fr.load_image_file(Face.objects.filter(known=False)[0].face)
-
+        input_image = fr.load_image_file(str(Face.objects.filter(known=False)[0].face))
+        known_images=Face.objects.filter(known=True)
         # get faces from input
         input_locations = fr.face_locations(input_image)
         numOfInputs = len(input_locations)
@@ -52,15 +52,13 @@ class Detect:
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
-        knownPics = os.listdir(settings.API_LINK+path.join(head,knownPics_path))
-        for f in range(len(knownPics)):
+        # knownPics = os.listdir(settings.API_LINK+path.join(head,knownPics_path))
+        for f in known_images:
             
-            name_of_known = knownPics[f][:-4]
+            name_of_known = str(f.name)
             print(name_of_known)
-            known_path=f'images\\known\\{knownPics[f]}'
-            if not settings.IS_WIN:
-                known_path=known_path.replace("\\","/")
-            image_of_known = fr.load_image_file(settings.API_LINK+path.join(head,known_path))
+            known_path=str(f.face)
+            image_of_known = fr.load_image_file(settings.API_LINK+known_path)
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
             # compare current known against inputs
