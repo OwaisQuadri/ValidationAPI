@@ -42,11 +42,9 @@ class Detect:
             face_input = input_image[top:bottom, left:right]
             pil_image = Image.fromarray(face_input)
             # pil_image.show()
-            inputFaces.append(pil_image)
-            # inputcount_path=f'images\\input\\input{count}.png'
-            # if not settings.IS_WIN:
-            #     inputcount_path=inputcount_path.replace("\\","/")
-            # pil_image.save(settings.MEDIA_ROOT[4:]+settings.MEDIA_URL+path.join(head,inputcount_path))
+            # inputFaces.append(pil_image)
+            # inputcount_path=FM / 'images' / 'input' / str(f'input{count}.png')
+            # pil_image.save(inputcount_path)
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
@@ -55,14 +53,12 @@ class Detect:
             
             name_of_known = str(f.name)
             print(name_of_known)
-            known_path=str(f.face)
-            image_of_known = fr.load_image_file(Image.open(URL.urlopen(settings.API_LINK+known_path)))
+            known_path=FMR / str(f.face)
+            image_of_known = fr.load_image_file(known_path)
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
             # compare current known against inputs
             # inputLocation_path="images\\input"
-            # if not settings.IS_WIN:
-            #     inputLocation_path=inputLocation_path.replace("\\","/")
             # inputLocation = os.listdir(settings.API_LINK+path.join(head,inputLocation_path))
             
             for i in inputFaces:
@@ -73,7 +69,7 @@ class Detect:
                 # i__path=settings.API_LINK+path.join(head,i_path)
                 
                 # img = fr.load_image_file(i__path)
-                img = fr.load_image(i)
+                img = fr.load_image_file(i)
                 # im=Image.open(i)
                 
                 # w,h=im.size
