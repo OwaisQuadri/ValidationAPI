@@ -16,7 +16,7 @@ class Detect:
         recognized = ""
         # load image to save
         
-        head=os.listdir(path.join("face_api","faceDetect"))
+        head=path.join("face_api","faceDetect")
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
