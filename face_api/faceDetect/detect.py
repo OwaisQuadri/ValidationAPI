@@ -39,7 +39,7 @@ class Detect:
             pil_image = Image.fromarray(face_input)
             input_path=FMR / 'media' / 'images' / 'input' 
             inputcount_path=input_path / ('input'+str(count)+'.png')
-            pil_image.save(inputcount_path)
+            pil_image.save(str(inputcount_path))
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
