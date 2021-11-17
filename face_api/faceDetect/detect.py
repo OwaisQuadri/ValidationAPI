@@ -52,8 +52,7 @@ class Detect:
             
             name_of_known = str(f.name)
             print(name_of_known)
-            known_path=FMR / 'media' / str(f.face)
-            print (os.listdir(FMR/'media'/'images'/'known'))
+            known_path=FMR / (str(f.face)[1:])
             image_of_known = fr.load_image_file(known_path)
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
