@@ -16,11 +16,11 @@ class FaceAPIView (APIView):
     #get for seeing who is registered (return names and picture of who is known)
     def get(self,request):
         Detect().delete_unknowns()
-        faces=Face.objects.all()
+        faces=Face.objects.filter(known=True)
         # ser=FaceSerializer(faces,many=True)
         output=""
         for f in faces:
-            output+=f.name+","
+            output+=str(f.name)+","
         if len(output) != 0:
             output = output[:-1]
         return Response(output)#ser.data)
