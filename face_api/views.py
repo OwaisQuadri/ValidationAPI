@@ -8,13 +8,15 @@ from .serializers import FaceSerializer
 from .faceDetect.detect import Detect
 import os
 from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 
 # Create your views here.
-
 class FaceAPIView (APIView):
     #get for seeing who is registered (return names and picture of who is known)
     def get(self,request):
+        user = request.user
         Detect().delete_unknowns()
         faces=Face.objects.filter(known=True)
         ser=FaceSerializer(faces,many=True)
@@ -27,8 +29,9 @@ class FaceAPIView (APIView):
             output = output[:-1]
         return Response(output)#ser.data)
     #post for checking if there is a known user in picture posted (return username or 'Unregistered User')
-    #@csrf_exempt
+    
     def post(self,request):
+        user = request.user
         faceDetector=Detect()
         ser = FaceSerializer(data = request.data)
         if ser.is_valid():
@@ -55,6 +58,7 @@ class FaceAPIView (APIView):
 
 class DeleteFaceAPIView(APIView):
     def get(self,request,name):
+        user = request.user
         # name=name.replace("%20"," ")
         if name == "null":
             name=""

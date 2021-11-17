@@ -21,5 +21,5 @@ from rest_framework.authtoken import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('face_api.urls')),
-    path('auth/',views.obtain_auth_token, name='api-token-basic')
+    path('auth/',views.obtain_auth_token, name='api-token-auth')
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

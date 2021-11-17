@@ -3,6 +3,8 @@ Django rest API to perform facial recognition for IoT Smart Doorbell's expo proj
 
 how to use:
 - each image must be posted using base64 encoding
+- use an "Authorization: Basic BASIC_AUTH_TOKEN" header  
+    - where BASIC_AUTH_TOKEN is your base64 encoded "username:password"
 - to enter known users into database, send this POST request to the base URL:  
 {  
     "name":"",  
