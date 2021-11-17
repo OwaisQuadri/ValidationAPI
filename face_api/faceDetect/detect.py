@@ -16,7 +16,7 @@ class Detect:
         recognized = ""
         # load image to save
         print(socket. gethostname(),settings.MEDIA_ROOT,settings.MEDIA_URL)
-        head=os.path.join(socket. gethostname(),settings.MEDIA_ROOT+settings.MEDIA_URL)
+        head="."+os.path.join(socket. gethostname(),settings.MEDIA_ROOT+settings.MEDIA_URL)
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes

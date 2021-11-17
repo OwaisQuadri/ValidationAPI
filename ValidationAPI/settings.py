@@ -14,6 +14,8 @@ from pathlib import Path
 import platform
 import django_heroku
 
+API_LINK="https://validation--api.herokuapp.com/"
+
 IS_WIN=(platform.system()=='Windows')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
