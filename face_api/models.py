@@ -5,7 +5,7 @@ from uuid import uuid4
 from pathlib import Path
 
 def path_and_rename(instance, filename):
-    upload_to = Path('images/known').resolve()
+    upload_to = settings.MEDIA_ROOT / 'media' / 'images' / 'known'
     ext = filename.split('.')[-1]
     # get filename
     if instance.name:
