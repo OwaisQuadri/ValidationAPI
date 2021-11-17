@@ -15,8 +15,6 @@ class Detect:
     def __init__(self):
         pass
     def recognize(self):
-        #init inputFaces
-        inputFaces=[]
         #init output
         output=""
         # initialize recognized
@@ -26,7 +24,6 @@ class Detect:
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
-        known_path_FM=path.join('images','known')
         # get faces of random pic input
         input_image_path=FMR / str(Face.objects.last().face)
         input_image = fr.load_image_file(input_image_path)
@@ -40,14 +37,12 @@ class Detect:
             top, right, bottom, left = input
             face_input = input_image[top:bottom, left:right]
             pil_image = Image.fromarray(face_input)
-            # pil_image.show()
-            inputFaces.append(pil_image)
-            # inputcount_path=FM / 'images' / 'input' / str(f'input{count}.png')
-            # pil_image.save(inputcount_path)
+            input_path=FMR / 'media' / 'images' / 'input' 
+            inputcount_path=input_path / str(f'input{count}.png')
+            pil_image.save(inputcount_path)
         self.delete_unknowns()
         # get face encoding of knowns
         print ("Known users:")
-        # knownPics = os.listdir(settings.API_LINK+path.join(head,knownPics_path))
         for f in known_faces:
             
             name_of_known = str(f.name)
@@ -57,24 +52,18 @@ class Detect:
             known_face_encoding = fr.face_encodings(image_of_known)[0]
 
             # compare current known against inputs
-            # inputLocation_path="images\\input"
-            # inputLocation = os.listdir(settings.API_LINK+path.join(head,inputLocation_path))
+            inputLocation = os.listdir(input_path)
             
-            for i in inputFaces:
-                # i_path=f'images\\input\\{i}'
-                # if not settings.IS_WIN:
-                #     i_path=i_path.replace("\\","/")
+            for i in inputLocation:
+                i_path=input_path / str(i)
                 
-                # i__path=settings.API_LINK+path.join(head,i_path)
+                img = fr.load_image_file(i_path)
+                im=Image.open(i_path)
                 
-                # img = fr.load_image_file(i__path)
-                img = fr.load_image_file(i)
-                # im=Image.open(i)
-                
-                # w,h=im.size
-                # kfl=[(0, w, h, 0)]
-                # im.close()
-                face_encoding = fr.face_encodings(img)#,known_face_locations=kfl)
+                w,h=im.size
+                kfl=[(0, w, h, 0)]
+                im.close()
+                face_encoding = fr.face_encodings(img,known_face_locations=kfl)
                 
                 match = fr.compare_faces(known_face_encoding, face_encoding)[0]
                 
