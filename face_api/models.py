@@ -5,7 +5,7 @@ from uuid import uuid4
 from pathlib import Path
 
 def path_and_rename(instance, filename):
-    upload_to = settings.MEDIA_ROOT / 'media' / 'images' / 'known'
+    upload_to = 'images/known/'
     ext = filename.split('.')[-1]
     # get filename
     if instance.name:
@@ -14,7 +14,7 @@ def path_and_rename(instance, filename):
         # set filename as random string
         filename = '{}.{}'.format(uuid4().hex, ext)
     # return the whole path to the file
-    return (upload_to / filename)
+    return os.path.join(upload_to,filename)
 # Create your models here.
 class Face (models.Model):
 
