@@ -3,11 +3,14 @@ import face_recognition as fr
 from PIL import Image
 import os
 from os import path
-import urllib.request as URL
+import requests
 from ValidationAPI.settings import MEDIA_URL
 from ..models import Face
 from django.conf import settings
 import socket
+from io import BytesIO
+
+
 # face_recognition --tolderance .40 ./known ./input
 class Detect:
     def __init__(self):
@@ -31,9 +34,10 @@ class Detect:
         if not settings.IS_WIN:
             knownPics_path=knownPics_path.replace("\\","/")
             input_image_path=input_image_path.replace("\\","/")
-        
-        input_image = fr.load_image_file(Image.open(URL.urlopen(settings.API_LINK+path.join(head,str(Face.objects.filter(known=False)[0].face)))))
-        known_images=Face.objects.filter(known=True)
+        response = requests.get(settings.API_LINK+path.join(head,str(Face.objects.filter(known=False)[0].face)))
+        resp_img = Image.open(BytesIO(response.content))
+        input_image = fr.load_image_file(resp_img)
+        known_faces=Face.objects.filter(known=True)
         # get faces from input
         input_locations = fr.face_locations(input_image)
         numOfInputs = len(input_locations)
@@ -53,7 +57,7 @@ class Detect:
         # get face encoding of knowns
         print ("Known users:")
         # knownPics = os.listdir(settings.API_LINK+path.join(head,knownPics_path))
-        for f in known_images:
+        for f in known_faces:
             
             name_of_known = str(f.name)
             print(name_of_known)
