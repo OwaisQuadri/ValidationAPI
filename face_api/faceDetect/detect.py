@@ -16,7 +16,7 @@ class Detect:
         recognized = ""
         # load image to save
         
-        head=settings.API_LINK+settings.MEDIA_URL
+        head=path.join(settings.API_LINK,settings.MEDIA_URL)
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
