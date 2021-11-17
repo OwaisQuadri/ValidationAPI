@@ -4,7 +4,7 @@ import os
 from uuid import uuid4
 
 def path_and_rename(instance, filename):
-    upload_to = 'images/known/'
+    upload_to = 'media/images/known/'
     ext = filename.split('.')[-1]
     # get filename
     if instance.name:
