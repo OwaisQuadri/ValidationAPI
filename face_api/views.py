@@ -45,7 +45,7 @@ class FaceAPIView (APIView):
                 if last.name is None:
                     last.name="Unnamed User"
                 output=f"Known user added: {last.name}"
-                output+="\nKnown users are:")
+                output+="\nKnown users are:"
                 for user in Face.objects.filter(known=True):
                     output+=f"\n{user.name}"
             return Response(output, status=status.HTTP_201_CREATED)
