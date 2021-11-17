@@ -14,7 +14,7 @@ from pathlib import Path
 import platform
 import django_heroku
 
-API_LINK="https://validation--api.herokuapp.com/"
+API_LINK="https://validation--api.herokuapp.com"
 
 IS_WIN=(platform.system()=='Windows')
 
