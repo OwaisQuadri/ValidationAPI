@@ -4,7 +4,7 @@ from PIL import Image
 import os
 from os import path
 import urllib.request as request
-from ValidationAPI.settings import MEDIA_URL,MEDIA_ROOT
+from django.conf import settings
 from ..models import Face
 import socket
 from io import BytesIO
@@ -22,15 +22,15 @@ class Detect:
         # initialize recognized
         recognized = ""
         # load image to save
-        FMR=MEDIA_ROOT
-        FM=MEDIA_ROOT+MEDIA_URL
+        FMR=settings.MEDIA_ROOT
+        FM=settings.MEDIA_ROOT / settings.MEDIA_URL
         # if not settings.IS_WIN:
         #     imagesDir=imagesDir.replace("\\","/")
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
         known_path_FM=path.join('images','known')
         # get faces of random pic input
-        input_image_path_FMR=str(Face.objects.last().face)
-        input_image = fr.load_image_file(FMR+input_image_path_FMR)
+        input_image_path=FMR / str(Face.objects.last().face)
+        input_image = fr.load_image_file(input_image_path)
         known_faces=Face.objects.filter(known=True)
         # get faces from input
         input_locations = fr.face_locations(input_image)

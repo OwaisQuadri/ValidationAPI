@@ -19,7 +19,7 @@ API_LINK="https://validation--api.herokuapp.com"
 IS_WIN=(platform.system()=='Windows')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR =  os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -130,7 +130,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 #MEDIA_ROOT=os.path.join(os.path.dirname(BASE_DIR),"ValidationAPI/face_api/faceDetect")
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static_cdn', 'media_root')
+MEDIA_ROOT = BASE_DIR / 'static_cdn' / 'media_root' #os.path.join(BASE_DIR, 'static_cdn', 'media_root')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
