@@ -54,12 +54,14 @@ class DeleteFaceAPIView(APIView):
         for f in face:
             f.face.delete()
         face.delete()
-        if name == "null":
-            name=""
-        face=Face.objects.filter(name=name)
+        #delete null named objects
+        face=Face.objects.all()
         for f in face:
-            f.face.delete()
-        face.delete()
+            print(f.name)
+            if f.name=="" :
+                f.face.delete()
+                f.delete()
+        
         return Response(status = status.HTTP_204_NO_CONTENT)
         
 

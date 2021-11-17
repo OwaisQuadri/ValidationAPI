@@ -23,7 +23,7 @@ class Face (models.Model):
     if not settings.IS_WIN:
         upload_to_path=upload_to_path.replace("\\","/")
 
-    name = models.CharField(max_length=100,null=True)
+    name = models.CharField(max_length=100,null=False)
     face = models.ImageField(upload_to=path_and_rename)
     known = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)
