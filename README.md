@@ -20,3 +20,6 @@ how to use:
   }
 - to delete a known user, send a GET request to "/delete/name/"
 - to view a known user's image, go to "/media/images/known/name.png" on a browser
+
+Demo:  
+**drag and drop video here**
