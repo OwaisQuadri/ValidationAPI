@@ -22,4 +22,4 @@ how to use:
 - to view a known user's image, go to "/media/images/known/name.png" on a browser
 
 Demo:  
-link to google drive demo video.
+https://drive.google.com/file/d/1Q6IkDUuqMbJJMDlL2oAemlod0cG-wVNz/view?usp=sharing
