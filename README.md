@@ -22,4 +22,4 @@ how to use:
 - to view a known user's image, go to "/media/images/known/name.png" on a browser
 
 Demo:  
-https://user-images.githubusercontent.com/55822994/142573089-d30f23ef-b858-4960-9d76-c383f4ad585c.mov
+link to google drive demo video.
