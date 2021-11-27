@@ -17,6 +17,12 @@ django-heroku = "*"
 whitenoise = "*"
 heroku = "*"
 httpie = "*"
+SpeechRecognition = "*"
+winspeech = "*"
+pipwin = "*"
+twilio = "*"
+python-dotenv = "*"
+pyyaml = "*"
 
 [dev-packages]
 
