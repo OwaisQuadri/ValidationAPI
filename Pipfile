@@ -23,6 +23,7 @@ pipwin = "*"
 twilio = "*"
 python-dotenv = "*"
 pyyaml = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
