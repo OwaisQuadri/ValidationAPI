@@ -15,7 +15,6 @@ from rest_framework.permissions import IsAuthenticated
 class FaceAPIView(APIView):
     # get for seeing who is registered (return names and picture of who is known)
     def get(self, request):
-        Detect().delete_unknowns()
         faces = Face.objects.filter(known=True)
         ser = FaceSerializer(faces, many=True)
         output = ""
