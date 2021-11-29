@@ -6,7 +6,7 @@ class LockSerializer (serializers.ModelSerializer):
     #images must be posted using base64 encoding
     class Meta:
         model = Lock
-        fields = ['name','status']
+        fields = ['lock_name','status']
 class LockPostSerializer (serializers.ModelSerializer):
     #images must be posted using base64 encoding
     class Meta:
