@@ -40,7 +40,10 @@ class Detect:
             known_path=FMR / str(f.face)
             image_of_known = fr.load_image_file(known_path)
             known_face_encoding = fr.face_encodings(image_of_known)[0]
-            matches = fr.compare_faces(known_face_encoding, input_encodings)
+            try:
+                matches = fr.compare_faces(known_face_encoding, input_encodings)
+            except:
+                return ""
             for match in matches:
                 if match == True:
                     print("recognized!")
@@ -49,7 +52,7 @@ class Detect:
             if output[-1]==",":
                 output=output[:-1]
         except:
-            output=""
+            return ""
         return output
     def delete_unknowns(self):
         unknowns=Face.objects.filter(known=False)
