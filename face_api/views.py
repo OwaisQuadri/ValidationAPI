@@ -41,7 +41,7 @@ class FaceAPIView(APIView):
                 if names[0]=="":
                     return Response("", status=status.HTTP_201_CREATED)
                 else:
-                    faces=Face.objects.filter(**names)
+                    faces=Face.objects.filter(*names)
                     recognized=FaceSerializer(faces,many=True )
                     return Response(recognized.data, status=status.HTTP_201_CREATED)
             else:
