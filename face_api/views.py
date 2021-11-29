@@ -41,7 +41,10 @@ class FaceAPIView(APIView):
                 if names[0]=="":
                     return Response("", status=status.HTTP_201_CREATED)
                 else:
-                    recognized=FaceSerializer(Face.objects.filter(name=names),many=True )
+                    faces=Face.objects.none()
+                    for name in names:
+                        faces+=Face.objects.filter(name=name)
+                    recognized=FaceSerializer(faces,many=True )
                     return Response(recognized.data, status=status.HTTP_201_CREATED)
             else:
                 if last.phone is None:
