@@ -11,17 +11,14 @@ from django.conf import settings
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-
 # Create your views here.
 class FaceAPIView(APIView):
     # get for seeing who is registered (return names and picture of who is known)
     def get(self, request):
-        user = request.user
         Detect().delete_unknowns()
         faces = Face.objects.filter(known=True)
         ser = FaceSerializer(faces, many=True)
         output = ""
-        c = 1
         for f in faces:
 
             output += str(f.name) + ","
@@ -32,7 +29,6 @@ class FaceAPIView(APIView):
     # post for checking if there is a known user in picture posted (return username or 'Unregistered User')
 
     def post(self, request):
-        user = request.user
         faceDetector = Detect()
         ser = FaceSerializer(data=request.data)
         if ser.is_valid():
@@ -40,19 +36,23 @@ class FaceAPIView(APIView):
             # check if posted img is known or unknown
             last = Face.objects.last()
             known = last.known
-            output = "Nobody was recognized"
             if not known:
                 # if unknown use faceDetector and check for user within known files
-                output = faceDetector.recognize()
-                print("\noutput: ", output)
+                names= faceDetector.recognize().split(',')
+                if names[0]=="":
+                    return Response("", status=status.HTTP_201_CREATED)
+                else:
+                    recognized=FaceSerializer(Face.objects.filter(name=names))
+                    return Response(recognized.data, status=status.HTTP_201_CREATED)
             else:
+                if last.phone is None:
+                    last.face.delete()
+                    last.delete()
+                    return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
                 if last.name is None:
                     last.name = "Unnamed User"
-                output = f"Known user added: {last.name}"
-                output += "\nKnown users are:"
-                for user in Face.objects.filter(known=True):
-                    output += f"\n{user.name}"
-            return Response(output, status=status.HTTP_201_CREATED)
+                last_ser=FaceSerializer(last)
+                return Response(last_ser, status=status.HTTP_201_CREATED)
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
