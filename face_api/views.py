@@ -51,7 +51,7 @@ class FaceAPIView(APIView):
                 if last.name is None:
                     last.name = "Unnamed User"
                 last_ser=FaceSerializer(last)
-                return Response(last_ser, status=status.HTTP_201_CREATED)
+                return Response(last_ser.data, status=status.HTTP_201_CREATED)
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
