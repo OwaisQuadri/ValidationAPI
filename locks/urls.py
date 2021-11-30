@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import LockStatus,SetLockStatus
+from .views import LockStatus, LockStatusDetail
 
 urlpatterns = [
-    path('<str:lock_name>/', LockStatus.as_view()),
-    path('', SetLockStatus.as_view())
+    path('<str:lock_name>/', LockStatusDetail.as_view()),
+    path('', LockStatus.as_view())
 ]
