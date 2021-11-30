@@ -28,12 +28,12 @@ class LockStatus(APIView):
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
     def get(self, request):
         locks=Lock.objects.none()
-        T=Lock.objects.all()
+        L=Lock.objects.all()
         names=[]
-        for t in T:
-            if t.lock_name not in names:
-                names.append(t.lock_name)
-                locks|=Lock.objects.filter(pk=t.pk)
+        for l in reversed(L):
+            if l.lock_name not in names:
+                names.append(l.lock_name)
+                locks|=Lock.objects.filter(pk=l.pk)
         
 
         ser=LockSerializer(locks, many=True)
