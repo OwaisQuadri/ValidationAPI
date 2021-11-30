@@ -31,8 +31,8 @@ class LockStatus(APIView):
         T=Lock.objects.all()
         names=[]
         for t in T:
-            if t.name not in names:
-                names.append(t.name)
+            if t.lock_name not in names:
+                names.append(t.lock_name)
                 locks|=Lock.objects.filter(pk=t.pk)
         
 
