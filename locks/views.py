@@ -11,6 +11,12 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
+#logs
+class LogsAPIView(APIView):
+    def get(self,request):
+        changedLocks=Lock.objects.filter(changed_by__isnull=False).order_by('-id')
+        logs=LockPostSerializer(changedLocks,many=True)
+        return Response(logs.data)
 #lock status's
 class LockStatusDetail(APIView):
     #checking lock status

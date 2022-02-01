@@ -7,6 +7,6 @@ class Lock (models.Model):
     lock_name = models.CharField(max_length=100,blank=True,null=True)
     status = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)
-
+    changed_by = models.CharField(max_length=100, null=True)
     def __str__(self):
         return self.name

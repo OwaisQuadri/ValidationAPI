@@ -4,9 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-cmake = "*"
 face-recognition = "*"
-dlib = "*"
+dlib = {path = "./dlib-19.22.99-cp310-cp310-win_amd64.whl"}
 update = "*"
 djangorestframework = "*"
 django = "*"
@@ -24,6 +23,7 @@ twilio = "*"
 python-dotenv = "*"
 pyyaml = "*"
 django-cors-headers = "*"
+cmake = "*"
 
 [dev-packages]
 
