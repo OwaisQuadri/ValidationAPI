@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+cmake = "*"
 face-recognition = "*"
 dlib = "*"
 update = "*"
@@ -23,7 +24,6 @@ twilio = "*"
 python-dotenv = "*"
 pyyaml = "*"
 django-cors-headers = "*"
-cmake = "*"
 
 [dev-packages]
 
