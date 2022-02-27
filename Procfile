@@ -1,4 +1,4 @@
 release: python3 manage.py makemigrations --no-input
 release: python3 manage.py migrate --no-input
 web: gunicorn ValidationAPI.wsgi
-web: gunicorn locks --timeout 10
+worker: python worker.py

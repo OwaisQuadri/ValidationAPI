@@ -24,6 +24,7 @@ twilio = "*"
 python-dotenv = "*"
 pyyaml = "*"
 django-cors-headers = "*"
+rq = "*"
 
 [dev-packages]
 

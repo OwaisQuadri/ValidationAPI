@@ -10,6 +10,8 @@ import os
 from django.conf import settings
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rq import Queue
+from worker import conn
 
 # Create your views here.
 class FaceAPIView(APIView):
@@ -30,8 +32,9 @@ class FaceAPIView(APIView):
             last = Face.objects.last()
             known = last.known
             if not known:
+                q =Queue(connection=conn)
                 # if unknown use faceDetector and check for user within known files
-                names= faceDetector.recognize().split(',')
+                names= q.enqueue(faceDetector.recognize()).split(',')
                 if names[0]=="":
                     return Response("", status=status.HTTP_201_CREATED)
                 else:
