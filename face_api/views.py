@@ -34,12 +34,12 @@ class FaceAPIView(APIView):
             last = Face.objects.last()
             known = last.known
             if not known:
-                q =Queue(connection=conn)
+                #q =Queue(connection=conn)
                 # if unknown use faceDetector and check for user within known files
-                names= q.enqueue(faceDetector.recognize,[])
-                time.sleep(2)
-                name=names.result.split(',')[0]
-                if name=="":
+                names= faceDetector.recognize().split(',') #q.enqueue()
+                # time.sleep(2)
+                
+                if names[0]=="":
                     return Response("", status=status.HTTP_201_CREATED)
                 else:
                     faces = Face.objects.none()
