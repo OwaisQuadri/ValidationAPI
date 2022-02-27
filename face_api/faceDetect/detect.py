@@ -31,11 +31,12 @@ class Detect:
         # get face encoding of knowns
         for f in known_faces:
             name_of_known = str(f.name)
-            print(name_of_known)
             known_path=FMR / str(f.face)
             image_of_known = fr.load_image_file(known_path)
-            known_face_encoding = fr.face_encodings(image_of_known)[0]
+            
             try:
+                #if someone in the known picture
+                known_face_encoding = fr.face_encodings(image_of_known)[0]
                 matches = fr.compare_faces(known_face_encoding, input_encodings)
                 for match in matches:
                     if match == True:
