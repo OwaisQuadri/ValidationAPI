@@ -1,3 +1,4 @@
+from posixpath import split
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
@@ -34,8 +35,9 @@ class FaceAPIView(APIView):
             if not known:
                 q =Queue(connection=conn)
                 # if unknown use faceDetector and check for user within known files
-                names= q.enqueue(faceDetector.recognize()).split(',')
-                if names[0]=="":
+                names= q.enqueue(faceDetector.recognize())
+                name=names.split(',')[0]
+                if name=="":
                     return Response("", status=status.HTTP_201_CREATED)
                 else:
                     faces = Face.objects.none()
