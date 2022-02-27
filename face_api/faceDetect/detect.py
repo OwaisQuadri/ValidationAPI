@@ -41,6 +41,9 @@ class Detect:
             image_of_known = fr.load_image_file(known_path)
             try:
                 known_face_encoding = fr.face_encodings(image_of_known)[0]
+            except:
+                return "cannot find face"
+            try:
                 matches = fr.compare_faces(known_face_encoding, input_encodings)
                 for match in matches:
                     if match == True:
