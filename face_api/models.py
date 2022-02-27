@@ -5,7 +5,7 @@ from uuid import uuid4
 
 def path_and_rename(instance, filename):
     upload_to = 'images/known/'
-    ext = 'jpeg' # filename.split('.')[-1]
+    ext = filename.split('.')[-1]
     # get filename
     if instance.name:
         filename = '{}.{}'.format(instance.name, ext)
@@ -21,6 +21,7 @@ class Face (models.Model):
     known = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)
     phone = models.CharField(max_length=12,blank=True,null=True)
+    
 
     def __str__(self):
         return self.name
