@@ -35,7 +35,7 @@ class FaceAPIView(APIView):
             if not known:
                 q =Queue(connection=conn)
                 # if unknown use faceDetector and check for user within known files
-                names= q.enqueue(faceDetector.recognize())
+                names= q.enqueue('views.faceDetector.recognize')
                 name=names.split(',')[0]
                 if name=="":
                     return Response("", status=status.HTTP_201_CREATED)
