@@ -17,8 +17,6 @@ class Detect:
     def recognize(self):
         #init output
         output=""
-        # initialize recognized
-        recognized = ""
         # load image to save
         FMR=settings.MEDIA_ROOT
         # head=os.path.dirname(settings.BASE_DIR)+ imagesDir# fixes when system changes
@@ -28,26 +26,20 @@ class Detect:
         known_faces=Face.objects.filter(known=True)
         # get faces from input
         input_locations = fr.face_locations(input_image)
-        numOfInputs = len(input_locations)
-        count = 0
         input_encodings = fr.face_encodings(input_image,known_face_locations=input_locations)
         self.delete_unknowns()
         # get face encoding of knowns
-        print ("Known users:")
         for f in known_faces:
             name_of_known = str(f.name)
             print(name_of_known)
             known_path=FMR / str(f.face)
             image_of_known = fr.load_image_file(known_path)
-            try:
-                known_face_encoding = fr.face_encodings(image_of_known)[0]
-            except:
-                return "cannot find face"
+            known_face_encoding = fr.face_encodings(image_of_known)[0]
             try:
                 matches = fr.compare_faces(known_face_encoding, input_encodings)
                 for match in matches:
                     if match == True:
-                        print("recognized!")
+                        #recognized
                         output+= name_of_known+","
             except:
                 continue
@@ -67,13 +59,3 @@ class Detect:
         for this in unknowns:
             this.face.delete()
         unknowns.delete()
-        #numOfFaces = len(facelocations)
-        # if(numOfFaces > 1):
-        #   print(f'there are {numOfFaces} faces in this image')
-        # loop through face locations
-
-
-        # recieves a picture with a mode [save, predict]
-
-        # if save, save picture to the 'known' folder
-        # else save to 'input' folder and run facialrecog against the picture in comparison to the known folder
