@@ -43,7 +43,7 @@ class Detect:
                         #recognized
                         output+= name_of_known+","
             except:
-                continue
+                pass
             
         try:
             if output[-1]==",":
