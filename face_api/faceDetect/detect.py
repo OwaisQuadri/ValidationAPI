@@ -28,8 +28,7 @@ class Detect:
         known_faces=Face.objects.filter(known=True)
         # get faces from input
         input_locations = fr.face_locations(input_image)
-        numOfInputs = len(input_locations)
-        count = 0
+        
         input_encodings = fr.face_encodings(input_image,known_face_locations=input_locations)
         self.delete_unknowns()
         # get face encoding of knowns
@@ -39,15 +38,19 @@ class Detect:
             print(name_of_known)
             known_path=FMR / str(f.face)
             image_of_known = fr.load_image_file(known_path)
-            known_face_encoding = fr.face_encodings(image_of_known)[0]
+            known_face_locations=fr.face_locations(image_of_known)
+            if len(known_face_locations)>0:
+                known_face_encoding = fr.face_encodings(image_of_known,known_face_locations[0])
+
             try:
                 matches = fr.compare_faces(known_face_encoding, input_encodings)
+                for match in matches:
+                    if match == True:
+                        print("recognized!")
+                        output+= name_of_known+","
             except:
-                return ""
-            for match in matches:
-                if match == True:
-                    print("recognized!")
-                    output+= name_of_known+","
+                pass
+            
         try:
             if output[-1]==",":
                 output=output[:-1]
