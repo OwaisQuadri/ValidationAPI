@@ -42,12 +42,13 @@ class Detect:
             try:
                 known_face_encoding = fr.face_encodings(image_of_known)[0]
                 matches = fr.compare_faces(known_face_encoding, input_encodings)
+                for match in matches:
+                    if match == True:
+                        print("recognized!")
+                        output+= name_of_known+","
             except:
-                return ""
-            for match in matches:
-                if match == True:
-                    print("recognized!")
-                    output+= name_of_known+","
+                continue
+            
         try:
             if output[-1]==",":
                 output=output[:-1]
