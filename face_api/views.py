@@ -11,7 +11,7 @@ from django.conf import settings
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rq import Queue
-from .worker import conn
+from ..worker import conn
 
 # Create your views here.
 class FaceAPIView(APIView):
